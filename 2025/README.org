@@ -7,7 +7,7 @@ So Python it is.
 
 * Day 1
 
-A simple intruction-following problem. The only trick - using mod.
+A simple instruction-following problem. The only trick - using mod.
 
 * Day 2
 
@@ -51,10 +51,10 @@ full list.
 
 * Day 9
 
-Now this was an excersise in corner case finding! First one was pure iteration over space
+Now this was an exercise in corner case finding! First one was pure iteration over space
 of possible solution, the second one required 3 insights: corners with certain
 incoming/outgoing edges can form rectangles; and any internal line intersection removes a
-rectange, line lenght is always at least 3. Took some time to figure things out properly.
+rectangle, line length is always at least 3. Took some time to figure things out properly.
 
 The code is lengthy and dirty and I am not proud of it!
 
@@ -72,7 +72,7 @@ The first problem was easy to solve using BFS.
 
 I struggled a bit to scale up the solution to the second problem until I realized (using a
 graphviz graph visualization) that input.txt was a DAG, which made topological sort
-possbile. Having a well-defined order made counting paths trivial.
+possible. Having a well-defined order made counting paths trivial.
 
 * Day 12
 
