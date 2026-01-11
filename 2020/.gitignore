@@ -1,0 +1,5 @@
+input.txt
+input-test.txt
+input*.txt
+input-test*.txt
+__pycache__

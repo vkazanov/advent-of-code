@@ -1,0 +1,72 @@
+* Day 1
+
+A simple intruction-following problem. The only trick - using mod.
+
+* Day 2
+
+Again, a relative simple brute-force problem pair. Mostly knowledge of python trivia
+checked.
+
+* Day 3
+
+A problem where I was tempted to use some kind of random subset choice, or even dynamic
+programming or something. But then realized that it's always possible to pick the best
+option from existing ones.
+
+* Day 4
+
+A simple 2D map counting problem. Most of the code is walking the map.
+
+Also an interesting set-based approach tried in Part2: compact but slow.
+
+* Day 5
+
+Interval merging problem. Boils down to sorting intervals + extending when overlaps are
+found.
+
+* Day 6
+
+Walking a matrix made of lines in weird ways. Technical but not horribly complicated.
+
+* Day 7
+
+Beam simulation. Solved the first one using BFS but on a second day full simulation leads
+to combinatorial explosion. Instead did a slight smarter way that propagates numbers of
+paths on a row by row basis.
+
+* Day 8
+
+A focused union-find implementation example, with the 2nd one being a simple tweak of the
+algorithm.
+
+After a bit of thinking, realized that using a min heap would avoid the need to sort a
+full list.
+
+* Day 9
+
+Now this was an excersise in corner case finding! First one was pure iteration over space
+of possible solution, the second one required 3 insights: corners with certain
+incoming/outgoing edges can form rectangles; and any internal line intersection removes a
+rectange, line lenght is always at least 3. Took some time to figure things out properly.
+
+The code is lengthy and dirty and I am not proud of it!
+
+* Day 10
+
+The first problem is just a simple BFS.
+
+The second one turned out too hard for my naive Python and BFS no matter what I tried. So
+I reformulated it in terms the Z3 Python constraint solver. For some reason it feels like
+cheating.
+
+* Day 11
+
+The first problem was easy to solve using BFS.
+
+I struggled a bit to scale up the solutoin to the second problem until I realized (using a
+graphviz graph visualization) that input.txt was a DAG, which made topological sort
+possbile. Having a well-defined order made counting paths trivial.
+
+* Day 12
+
+Well, this one was about checking if the stupid thing works first.

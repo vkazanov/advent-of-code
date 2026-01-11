@@ -1,0 +1,21 @@
+
+* Day 18
+
+An unusual parsing problem. The first part is a primitive parser with only one recursive
+element: parens.
+
+The second part introduces unusual precedence (addition over multiplication).
+
+* Day 19
+
+The first problem introduces a set of grammar rules that a given string can match
+agains. Solved it by a) merging rules into a single tree; b) doing a recursive matcher.
+
+The second one adds 2 recursive rules to the matching grammar. I made the solution more
+general than necessary by building something line an AST-based recursive interpreter. In
+hindsight, I should have just went with a Thompson-style VM, or explicit BFS.
+
+Adding memoization on rule_id and char index speed up the thing from 1.5s to 0.35, which
+is good. The next step would be to remove recursion altogether.
+
+Either way, a cool puzzle indeed.

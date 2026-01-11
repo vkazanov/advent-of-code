@@ -1,0 +1,407 @@
+[[https://adventofcode.com/2024][Advent of Code]] 2024 solutions.
+
+2024 is a year of Lua for me.
+
+* Lua as a puzzle solving language
+
+After solving the majority of puzzles using pure Lua and whatever comes with it out of the
+box I feel that I have an opinion.
+
+The language is dead simple. Whatever few features it has are carefully picked to make
+make the language as expressible as possible. Lua is also superreadable: I had no problems
+sharing my solutions with people in private leaderboards.
+
+Favourite things about the language:
+
+- first-class functions/closures
+
+- iterators
+
+- OOP built around hashmaps, dedicated syntax and metatables
+
+- simple equality rules
+
+- truthiness done right: only false and nil are false, everything else is true
+
+- coroutines
+
+- primitive modules
+
+- tail call optimization
+
+Things I hated for Advent of Code purposes:
+
+- global by default?!
+
+- barebones stdlib
+
+- 1-indexed tables
+
+- one and only one data structure
+
+TL;DR not bad, definitely better than Java or C or Go but worse than Python.
+
+* Solutions
+
+** Day 1
+
+[[file:1/part1.lua][Part1]] is about sorting 2 tables and then summing up the differences between smallest to
+largest pairs.
+
+time lua part1.lua -> 3ms
+
+[[file:1/part2.lua][Part2]] is just about counting the number of times numbers in the left table appear in the
+right table and summing up products of left side numbers and numbers of times they appear
+on the right.
+
+Both would basically become code golf excersises in Python, less convenient in Lua.
+
+time lua part1.lua -> 3ms
+
+** Day 2
+
+[[file:2/part1.lua][Part1]] again, a simple code golf task: check if the numbers are either increasing or
+descreasing by a given number.
+
+time lua part1.lua -> 2ms
+
+[[file:2/part2.lua][Part2]] same as Part1 but also check if skipping 1 invalid number makes the report correct.
+I check the full report first and the look for a number to skip. This n ** 2 but should do
+for this particular task.
+
+time lua part2.lua -> 8ms
+
+Notes:
+
+1. Possible to improve by caching safe report subsequences starting with the invalid one
+   but no point in do this.
+
+** Day 3
+
+Both parts of [[file:3/][the day]] ask for some regex + maybe something like a virtual machine. Could
+have been better with a Perl-like regex engine but still ok.
+
+time lua part1.lua -> 2ms
+
+time lua part2.lua -> 2ms
+
+Notes:
+
+1. Could be speed up by avoid scanning intervals between don't and do but it just doesn't
+   make sense at this point
+
+** Day 4 - XMAS search
+
+Sort of [[file:4/][boring again]], looking for lines.
+
+In Part1 I build a list of all diagonal, horizontal and vertical lines, and then grep
+through these.
+
+In Part2 I flatten the input into a string and match it against 4 possible patterns.
+
+time lua part1.lua -> 16ms
+
+time lua part2.lua -> 14ms
+
+** Day 5 - rule checking (and a loop)
+
+The [[file:5/][first problem]] that has something interesting in it. The point is to check if rules are
+ordered according to a list of ordering list.
+
+In the naive version of Part1 I just check all pairs number pairs against a hash of rules,
+which makes O(N*N). Same for fixing in Part2.
+
+time lua part1.lua -> 25ms (part1)
+
+time lua part1.lua -> 1s (part1 + part2)
+
+So instead of direct comparison I switched to using sorting with a custom sorting
+function, which is used for both parts:
+
+time lua part1.lua -> 8ms (part1 + part2)
+
+** Day 6 - the guard and the obstacle
+
+On [[file:6/][this day]] the problem was about moving the guard around the map. Part1 works fast even with
+a naive approach literal walking approach:
+
+time lua part1.lua -> 10ms
+
+Part2 uses backtracking for loop search with an obstacle, and the native stepping approach
+results in bad run time:
+
+time lua part1.lua -> 9s
+
+An improved version that when setting up an obstacle directly jumps to the closest
+obstacle instead of walking step by step:
+
+time lua part2-optim.lua -> 300ms
+
+For obstacle indexing I just keep per-line, per-column lists of obstacles. A binary tree
+would be better.
+
+** Day 7 - finding the right operators
+
+In [[file:7/][both parts]] the problem boils down to finding the right operators that would make inputs
+sum up to an expected number. Left-to-right, same priority, so no complex approaches
+necessary. Naive solutions:
+
+time lua part1.lua -> 3ms
+
+time lua part2.lua -> 10s
+
+Notes:
+
+1. might be possible to reuse some of the computation, i.e. using a map of sums to
+   remaining numbers.
+
+** Day 8 - antinodes on a grid
+
+On Day 8 the problem needed taking pairs of antennas and marking antinode coordinates in a
+set. Could have been cleaner but works fast enough anyways.
+
+time lua part1.lua -> 2ms
+
+time lua part2.lua -> 3ms
+
+** Day 9 - disk fragmentation
+
+The disk fragmentation problem where the program has to rearrange files according to
+simple (part1) and slightly more involved rules (part2).
+
+time lua part1.lua -> 27ms
+
+time lua part2.lua -> 90s
+
+The problem with second approach is that I work on bytes directly when representing byte
+spans would be much more efficient and readable.
+
+** Day 10 - trail scores
+
+Walking the map using DFS + simple rules.
+
+time lua part1.lua -> 13ms
+
+time lua part2.lua -> 15ms
+
+** Day 11 - counting stones
+
+A trivial counting problem. DP/caching makes the speed acceptable:
+
+time lua part1.lua -> 81ms
+
+time lua part2.lua -> 95ms
+
+** Day 12 - fencing price
+
+Again, nothing complicated. The regions are filled, then fence prices are calculated using
+vertical/horizontal line scanning. A bunch of corner cases, the code is hairy but works
+ok:
+
+time lua part1.lua -> 150ms
+
+time lua part2.lua -> 115ms
+
+** Day 13 - Solving on paper
+
+A cute little puzzle where using anything but paper (part1) can sometimes be an overkill .
+Part2 shows how solving an equation on paper sometimes works better.
+
+time lua part1.lua -> 3s
+
+time lua part2.lua -> 2ms
+
+** Day 14 - Looking for a tree picture
+
+The controversial puzzle. In the first part we had to program point movement with
+wrapping. In the second part I had to find a tree, which I did by manually looking for
+straight lines longer than N=5.
+
+** Day 15 - pushing boxes, Sokoban style
+
+In this puzzle a robot pushes boxes around. The second part of the puzzle increases
+complexity by introducing boxes than cover 2 map tiles.
+
+The first part is easy. The solution was to recursively check if pushing is possible.
+Solving the 2nd part mostly boilied down to introducing additional recursive rules around
+pushing box pieces.
+
+time lua part1.lua -> 13ms
+
+time lua part2.lua -> 140ms
+
+** Day 16 - counting the number of nodes in optimal paths
+
+[[file:16/part1.lua][Part 1]] is a pretty boring shortest path problem on a grid with a little twist: a single
+step is worth 1 point, while a rotation is a 1000. In practice this means that a graph
+node a described by 2 vectors: a position vector and a direction vector. I used a
+heap-based Priority Queue to do Dijkstra-style shortest path search.
+
+time lua part1.lua -> 0.5s
+
+In [[file:16/part2.lua][Part 2]] the problem is modified with the additional requirement: count the number of
+optimal path nodes. In Dijkstra the optimal path is normally retrieved by storing prev
+nodes on all reached nodes including the target one. Getting the optimal path then
+requires an additional backwards traversal loop using the prev node links.
+
+Now, because there can be many optimal paths, both diverging and merging, instead of a
+single previous node, a set of previous optimal paths should be built along the pathfor
+every node.
+
+There are 2 more necessary things: cut out suboptimal paths by tracking best node score.
+Upon reaching the final node all the other optimal paths have to be recorded.
+
+time lua part2.lua -> 5s
+
+Notes:
+
+1. both times are too big, the solution needs fixing
+2. code is dirty, would benefit from a clean up
+
+** Day 17 - implementing a VM and decompiling a program
+
+The first part was trivial: create the vm, run the code, get the output.
+
+The second part involved creative thinking but turned out to be not too hard after all. By
+looking at the code provided, it became clear that it's possible to walk backwards from a
+final vm state to the initial state of a variable, which resulted in a minimal run time.
+
+time lua part1.lua -> 0.2ms
+
+time lua part2.lua -> 1ms
+
+** Day 18 - falling broken memory bytes
+
+Part1 - find the optimal path using Dijkstra. Part2 - mark the optimal path. Whenever a
+falling byte changes the optimal path - try to find a better one starting with the end
+position.
+
+time lua part1.lua -> 17ms
+
+time lua part2.lua -> 1.2s
+
+Notes:
+
+1. It should be possible to limit the amount of path rebuilding in part2 by only
+   revisiting tiles whenever necessary.
+
+2. the other option is a bisection in time.
+
+What I do: mark everything reacheable from start with a BFS run. Then start removing bytes
+one by one, expanding the region using additional BFS runs ONLY if we've removed something
+near the region. Works like charm!
+
+time lua part2-optim.lua -> 18ms
+
+** Day 19 - collecting towel patterns (using a trie)
+
+Here the point is to collect patterns using a predefined subpattern list.
+
+In part1 I just match pattern compatiblity using a recursive funciton one by one.
+
+In part2 the point is to check every possible design. I use DP to cache suppeterns already
+explored:
+
+time lua part1.lua -> 49ms
+
+time lua part2.lua -> 250ms
+
+One last improvement is using a trie to skip prefixes that can start a given subpattern:
+
+time lua part2-trie.lua -> 13ms
+
+** Day 20 - maze walk with temporary cheat jumps
+
+Here it is an easy single path walk but sometimes the walls disappear and we need to count
+hom many jumps can save at least a given number of picoseconds.
+
+In Part1 I for some reason used unnecessary Dijktra along with counting logic along the
+way.
+
+time lua part1.lua -> 60ms
+
+In Part2 the rules are updated to complicate the cheating logic. My solution was checking
+every possible cheat position along the way:
+
+time lua part2.lua -> 3.2s
+
+But a hint online where somebody showed how it only made sense to check positions along a
+certain distance speed up the solution massively:
+
+time lua part2-optim.lua -> 150ms
+
+** Day 21 - too many control pads
+
+The problem is formulated as a cascade of recursive control pads. At first it looks like
+an DP optimization problem but examining all the corner cases showed that a greedy
+algorithm can take optimal decisions at all steps. With 1 numpad + 3 keypads I get:
+
+time lua part1.lua -> 2ms
+
+Now, the 2nd part has 1 numpad + 25 keypads. In practise this means that it's impossible
+to store all intermediate control command strings and my algorithm just fell apart.
+
+What worked was realizing that the state of every movement is determined by 3 variables:
+previous char, this char and depth of translation. Having this meant that caching becoems
+feasible and the problem turns into a trivial DP instance:
+
+time lua part2.lua -> 15ms
+
+Note how there's also a secondary movement cache that speeds up movements from 50ms to
+15ms. This could have been a simple table but anyway.
+
+** Day 22 - banana prices
+
+An easy problem. For the first part just calculate the price, while for the second one
+use a sliding window of a secret sequence to record possible prices:
+
+time lua part1.lua -> 380ms
+
+time lua part2.lua -> 4.5s
+
+Kind of slow. Switching hash keys from strings to integers and inlining a few functions
+calls in the hot loop did help surprisingly well:
+
+time lua part2.lua -> 1s
+
+** Day 23 - LAN cliques
+
+An algo problem. Find cliques of a given size in Part1, then find the largest clique in
+Par2. 2 approaches possible: take a set of every vertice and check if any other vertice is
+part of the same clique - this is brute force; or use the backtracking Bron–Kerbosch algo,
+which optimises things a bit.
+
+time lua part1.lua -> 900ms
+
+time lua part2.lua -> 1s
+
+Most of the work was writing a Set data structure.
+
+** Day 24 - summator data flow
+
+Implementation + tinkering. In the first part we were asked to implement a data flow
+device calculating something through bit logic. In the 2nd part I just dumped the tree and
+found all 4 misplaced swaps. Could have automated this somehow but it felt easier to jump
+look and fix.
+
+time lua part1.lua -> 5ms
+
+time lua part2.lua -> 6ms
+
+** Day 25 - keys and locks
+
+A trivial puzzle: checked all locks again all keys. It took more time to write the parser
+than solve the puzzle.
+
+time lua part1.lua -> 5ms
+
+* Reference
+
+ - https://garoof.no/notes/aoc-lua.html - a few Lua tricks (vector, foldl, etc)
+
+ - https://explog.in/notes/aoc.html - interesting notes and links
+
+ - https://mmhaskell.com/blog/2023/1/30/advent-of-code-fetching-puzzle-input-using-the-api -
+   fetching inputs in Haskell
+
+ - https://github.com/keegancsmith/advent/ - a starting point for utils in [[file:advent.el][advent.el]]
