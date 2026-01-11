@@ -1,3 +1,10 @@
+* Back to Python
+
+After doing 2024 in Lua, which felt very Python but without all the nice things, I wanted
+to concentrate on algorithms.
+
+So Python it is.
+
 * Day 1
 
 A simple intruction-following problem. The only trick - using mod.
@@ -63,7 +70,7 @@ cheating.
 
 The first problem was easy to solve using BFS.
 
-I struggled a bit to scale up the solutoin to the second problem until I realized (using a
+I struggled a bit to scale up the solution to the second problem until I realized (using a
 graphviz graph visualization) that input.txt was a DAG, which made topological sort
 possbile. Having a well-defined order made counting paths trivial.
 

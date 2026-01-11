@@ -1,0 +1,10 @@
+A collection of my [[https://adventofcode.com/][Advent of Code]] solutions.
+
+Typical year directory structure: ={year}/{day}/part{1,2}.{ext}=.
+
+Top-level year directories contains notes on solutions in the README. Usual plan: do
+things myself no matter what, then use Reddit or any other tool to look into alternative
+approaches.
+
+I also bits of personalized Emacs Lisp to make working with solutions through Emacs
+easier.
