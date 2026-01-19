@@ -1,6 +1,7 @@
 ;;; advent.el --- advent of code utils               -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2024, 2024  Vladimir Kazanov
+;; Copyright (C) 2015-2021 Keegan Carruthers-Smith
+;; 2024-2026  Vladimir Kazanov
 
 ;; Author: Vladimir Kazanov <vekazanov@gmail.com>
 ;; Keywords: lisp
