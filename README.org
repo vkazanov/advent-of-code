@@ -9,5 +9,5 @@ Top-level year directories contains notes on solutions in the README. Usual plan
 things myself no matter what, then use Reddit or any other tool to look into alternative
 approaches.
 
-I also use bits of personalized Emacs Lisp to make working with solutions through Emacs
+I also use my [[https://github.com/vkazanov/advent-mode][advent-mode]] in Emacs to make working with solutions through Emacs
 easier.
