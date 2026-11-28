@@ -1,0 +1,8 @@
+* Just a playground
+
+Year 2015 is mostly interesting historically, as the first puzzle set published by the
+author. So the intention is to at least take a shot at few of these.
+
+* Day 1
+
+A trivial input iteration problem.
